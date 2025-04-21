@@ -1,0 +1,44 @@
+# Bytecode de Python
+_pycache_/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+env/
+venv/
+ENV/
+.venv/
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de log
+*.log
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+
+# Archivos de pruebas y resultados
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# Archivos generados por herramientas de análisis
+.mypy_cache/
+.pytype/
+
+# Archivos de salida o temporales
+*.out
+*.tmp
+*.bak
+
+# Datos locales no versionados
+datos/*.xlsx
+datos/*.csv
+
+# Otros archivos que quieras excluir manualmente
+*.zip
+*.tar.gz
