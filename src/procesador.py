@@ -87,3 +87,23 @@ class Analizador:
             promedios[provincia] = acumulados[provincia] / conteos[provincia]
         
         return promedios
+
+    def diferencia_ventas_exportaciones_por_provincia(self):
+        """Retorna un diccionario con la diferencia entre ventas totales y exportaciones, agrupado por provincia"""
+        ventas_por_provincia = self.ventas_totales_por_provincia()  # Obtener ventas por provincia
+        exportaciones_por_provincia = defaultdict(float)
+
+        # Calcular exportaciones totales por provincia
+        for fila in self.datos:
+            provincia = fila['PROVINCIA']
+            if provincia == "ND":
+                continue
+            exportaciones_por_provincia[provincia] += float(fila['EXPORTACIONES'] or 0.0)
+
+        # Calcular la diferencia entre ventas y exportaciones por provincia
+        diferencia = {}
+        for provincia, ventas in ventas_por_provincia.items():
+            exportaciones = exportaciones_por_provincia.get(provincia, 0.0)
+            diferencia[provincia] = ventas - exportaciones
+
+        return diferencia
