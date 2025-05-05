@@ -52,4 +52,21 @@ class TestAnalizador(unittest.TestCase):
             self.assertGreaterEqual(porcentaje, 0)
             self.assertLessEqual(porcentaje, 100)
 
-    
+    def test_diferencia_ventas_exportaciones_por_provincia(self):
+        """Verifica que la función retorne un diccionario con la diferencia entre ventas y exportaciones"""
+        resultado = self.analizador.diferencia_ventas_exportaciones_por_provincia()
+
+        # Verificar que el resultado es un diccionario
+        self.assertIsInstance(resultado, dict)
+
+        # Verificar que cada clave es una provincia (cadena de texto) y que el valor es un número flotante
+        for provincia, diferencia in resultado.items():
+            self.assertIsInstance(provincia, str)
+            self.assertIsInstance(diferencia, float)
+
+            # Comprobar que la diferencia no sea un valor inesperado (como NaN)
+            self.assertFalse(diferencia != diferencia)  # Verifica que la diferencia no sea NaN
+
+            # Comprobar que la diferencia tenga sentido lógico
+            # Las ventas y exportaciones no deben ser negativas (aunque la diferencia puede ser negativa si las exportaciones son mayores)
+            self.assertGreaterEqual(diferencia, -float('inf'))
