@@ -40,5 +40,16 @@ class TestAnalizador(unittest.TestCase):
         self.assertIsInstance(provincia, str)
         self.assertIsInstance(valor, float)
         self.assertTrue(valor > 0)
+        
+    def test_porcentaje_ventas_tarifa_cero_formato(self):
+        """Verifica que la función retorne un diccionario con valores numéricos válidos"""
+        resultado = self.analizador.porcentaje_ventas_tarifa_cero()
+        self.assertIsInstance(resultado, dict)
+
+        for provincia, porcentaje in resultado.items():
+            self.assertIsInstance(provincia, str)
+            self.assertIsInstance(porcentaje, float)
+            self.assertGreaterEqual(porcentaje, 0)
+            self.assertLessEqual(porcentaje, 100)
 
     

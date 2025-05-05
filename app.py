@@ -30,5 +30,11 @@ def main():
     provincia_importadora, total_importaciones = analizador.provincia_con_mayor_importacion()
     print(f"\tProvincia: {provincia_importadora} con ${total_importaciones:,.2f} en importaciones")
 
+    # Porcentaje de ventas con tarifa 0%
+    print("\nPorcentaje promedio de ventas con tarifa 0% por provincia:")
+    porcentaje_tarifa_cero = analizador.porcentaje_ventas_tarifa_cero()
+    for provincia, porcentaje in porcentaje_tarifa_cero.items():
+        print(f"\t{provincia}: {porcentaje:.2f}%")
+
 if __name__ == "__main__":
     main()

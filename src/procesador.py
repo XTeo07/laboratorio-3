@@ -54,4 +54,36 @@ class Analizador:
         # Buscar la provincia con la mayor importación
         provincia_max = max(importaciones_por_provincia, key=importaciones_por_provincia.get)
         return provincia_max, importaciones_por_provincia[provincia_max]
+    
+    def porcentaje_ventas_tarifa_cero(self):
+        """Calcula el promedio del porcentaje de ventas con tarifa 0% por provincia"""
+        acumulados = {}
+        conteos = {}
 
+        for fila in self.datos:
+            provincia = fila['PROVINCIA']
+            if provincia == "ND":
+                continue
+
+            try:
+                tarifa_0 = float(fila['VENTAS_NETAS_TARIFA_0'])
+                total_ventas = float(fila['TOTAL_VENTAS'])
+                if total_ventas == 0:
+                    continue
+                porcentaje = (tarifa_0 / total_ventas) * 100
+
+                if provincia in acumulados:
+                    acumulados[provincia] += porcentaje
+                    conteos[provincia] += 1
+                else:
+                    acumulados[provincia] = porcentaje
+                    conteos[provincia] = 1
+            except ValueError:
+                continue  # Si algún dato no es numérico
+
+        # Calcular promedio por provincia
+        promedios = {}
+        for provincia in acumulados:
+            promedios[provincia] = acumulados[provincia] / conteos[provincia]
+        
+        return promedios
